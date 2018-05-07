@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.rootadmin.mapper.SiteMapper">
+
+	<sql id="tableName">site</sql>
+<!-- autoMapping="true" -->
+	<resultMap id="siteResultMap" type="Site" >
+		<id column="id" property="id" />
+		<result column="siteGroup" property="siteGroup"  />
+		<result column="site_name" property="siteName"   />
+		<result column="site_url" property="siteUrl"  />
+		<result column="user_name" property="userName"   />
+		<result column="password" property="password"  />
+		<result column="site_state" property="siteState"   />
+		<result column="create_time" property="createTime"  />
+		<result column="update_time" property="updateTime"   />
+		<result column="remark" property="remark" />
+	</resultMap>
+		
+
+	
+	
+	<select id="queryPageListAllByParam" resultMap='siteResultMap' parameterType="cn.rootadmin.vo.SiteAllVo">
+		SELECT  *  FROM `site`
+		<where>
+			<if test="siteName!=null"> and site_name like #{siteName} </if>
+			<if test="siteUrl!=null"> and site_url like #{siteUrl} </if>
+		</where> 
+		   ORDER BY site_state,site_group,site_name
+	</select>
+	
+
+</mapper>
